@@ -2,7 +2,7 @@
 
 These are my solutions to the five final projects for the freeCodeCamp "Front End Development Libraries" certification.
 
-- [Random Quote Generator](./p-Random_Quote_Generator/)
+- [Random Quote Generator](p-Random_Quote_Generator/)
 
 ## Personal Notes:
 
