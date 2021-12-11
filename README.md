@@ -10,4 +10,8 @@ These are my solutions to the five final projects for the freeCodeCamp "Front En
 
 ## Personal Notes:
 
-While I'm realizing this course and certification are a bit basic (i.e. no mention of the React Router which I see come up in so many React topics), I'm a n00b to React, so that's good. And while I was able to speed through the JavaScript Algorithms & Data Structures projects in less than a day, I'm expecting these to take up to a week. We'll see.
+Started with the FCC base template (https://codepen.io/pen?template=MJjpwO), then added SCSS preprocessing, Bootstrap 5.1.3 (JS and CSS), React and ReactDOM (17.0.2), and jQuery (3.6).
+
+Saved it as a new template: https://codepen.io/pen/?template=xxXEWPY
+
+I'd originally tried to get the most minimal equivalent of this running locally, but kept running into issues. After a couple of hours, I asked myself "why do I insist on ratholing on a local dev environment that meets specs?" So I stopped fighting the easier path.
