@@ -1,10 +1,6 @@
 /* CodePen JS settings
-    JS Preprocessor: Babel
-    Libraries:
-      https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js
-      https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js
-      https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js
-      https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js      
+    Using: https://codepen.io/pen/?template=xxXEWPY
+    Removed JQuery from included libs because I didn't use it.
 */
 
 const quotes = [

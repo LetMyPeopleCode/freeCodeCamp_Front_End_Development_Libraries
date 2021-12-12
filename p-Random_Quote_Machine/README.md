@@ -30,7 +30,7 @@ For example, I first build everything static to ensure I pass the structure test
 
 ## The plan
 
-The working version is saved in a CodePen. I am saving the HTML, CSS, and JS portions here for backup.
+The working version is [saved in a CodePen](https://codepen.io/GregBulmash/pen/RwLGMqm). I am saving the HTML, CSS, and JS portions here for backup.
 
 ### 1: Fail All Tests
 
