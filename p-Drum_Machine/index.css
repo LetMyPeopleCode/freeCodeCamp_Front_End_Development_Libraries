@@ -1,11 +1,17 @@
-#App {
-  min-height: 30em;
+#drum-machine {
+  background-color: #dde;
+  padding: 8px;
+  min-height: 300px;
   min-width: 400px;
-  max-width: 1200px;
-  border: 1px solid #000;
-  background-color: #444;
+}
+.drum-pad {
+  padding: 8px;
+  font-size: 18pt;
+  min-width: 50px;
+  max-width: 100px;
 }
 
-#editor {
-  border: 1px solid #000;
+#key-row {
+  padding-top: 15px;
+  max-width: 80%;
 }
