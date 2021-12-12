@@ -20,7 +20,7 @@ This is my interpretation of the requirements doc that freeCodeCamp provides. It
     - code block
     - list item
     - blockquote
-    - image
+    - image 
     - bolded text
 
   - default text is rendered in previewer (US 6)
@@ -38,16 +38,22 @@ Once again, I pass 1 because it just requires some sort of tech stack, but the r
 
 ### 2: Pass US 1 & 2
 
+Easy peasy, lemon squeezy.
+
 ### 3: Pass US 3 & 5
 
-Ensure both components (editor and preview) use a state variable, so they're "always" in sync. Then fill the initial value of the state variable with the requirements for 5.
+To make it easy to pass state between components, I created a hook with React.useState(), then passed the setter and/or value to the child components. Then we made the default text.
 
-### 5: US 4 & 6
+5 was tough. The test checks the rendered markdown, not the raw markdown, which makes the test description misleading.  
+
+### 4: US 4 & 6
 
 Add the wiring to render the markdown as HTML in the preview component.
 
-### 6: US 7
+This SEEMED easy until running the tests and US 5 still wouldn't pass. After ~90 minutes of wasted time, I tracked it to the test being brittle and reliant on a specific version of the markdown library, which they didn't mention. Solved.
 
-Yes, it's optional, but it seems like something worth adding so I'm not just doing the minimum.
+### 5: US 7
+
+After all the time wasted on having too new a version of marked.js, I decided there wasn't time for this.
 
  
