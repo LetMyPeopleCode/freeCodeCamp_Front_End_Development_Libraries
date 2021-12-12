@@ -1,0 +1,11 @@
+#App {
+  min-height: 30em;
+  min-width: 400px;
+  max-width: 1200px;
+  border: 1px solid #000;
+  background-color: #444;
+}
+
+#editor {
+  border: 1px solid #000;
+}

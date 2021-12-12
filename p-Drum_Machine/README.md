@@ -1,35 +1,22 @@
-# freeCodeCamp Markdown Previewer
+# freeCodeCamp Drum Machine
 
 ## INTRODUCTION
 
 This is my interpretation of the requirements doc that freeCodeCamp provides. It simplifies the User Stories and puts them in the order of the project execution to serve as my guide.
 
 ## STRUCTURE:
-  - `textarea` with id of "editor" (US 1)
-  - element with id of "preview" (US 2)
+  - 
+  - 
 
 ## BEHAVIOR:
-- when `editor` is changed, `preview` updates (US 3)
-- when `editor` content is markdown, `preview` displays rendered HTML (US 4)
 - **On-Load**
-  - editor default text contains sample markdown for: (US 5)
-    - H1
-    - H2
-    - link
-    - inline code
-    - code block
-    - list item
-    - blockquote
-    - image 
-    - bolded text
-
-  - default text is rendered in previewer (US 6)
-
-- **OPTIONAL** - Markdown renders carriage returns to \<br /\> (US 7)
+  - 
+    
+- 
 
 ## THE PLAN:
 
-The working version is [saved in a CodePen](https://codepen.io/GregBulmash/pen/gOGLbrp). I am saving the HTML, CSS, and JS portions here for backup.
+The working version is [saved in a CodePen](https://codepen.io/GregBulmash/pen/MWEbJgY). I am saving the HTML, CSS, and JS portions here for backup.
 
 ### 1: Fail All Tests
 
