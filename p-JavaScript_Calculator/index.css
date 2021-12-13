@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Share+Tech+Mono&display=swap");
+
+#root {
+  width: 520px;
+  padding: 3px;
+  font-family: "Roboto Mono";
+  margin-top: 30px;
+  border-radius: 12px;
+}
+
+#calculator {
+  padding: 5px;
+  background-color: #9999af;
+  max-width: 99%;
+  max-height: 99%;
+  border-radius: 18px;
+}
+
+#display {
+  background-color: #ded;
+  padding: 6px;
+  text-align: right;
+  font-size: 36px;
+  overflow: auto;
+  font-family: "Share Tech Mono";
+  border-radius: 18px;
+  margin-bottom: 4px;
+}
+
+.keybutton {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  border: 1px solid #222;
+  margin: 2px;
+  text-align: center;
+  font-size: 24pt;
+  color: #fff;
+  font-weight: 600;
+  background-color: #000;
+  border-radius: 15px;
+}
+
+.keybutton:hover {
+  background-color: #007;
+}
