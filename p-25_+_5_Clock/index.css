@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap");
+
+div {
+  /* border:1px solid #00d; */
+}
+
+body {
+  background-color: #333;
+  font-family: "Bebas Neue";
+}
+
+#root {
+  background-color: tomato;
+  color: #dedede;
+  padding: 8px;
+  border: 2px solid #111;
+  border-radius: 10px;
+  width: 60vw;
+  min-height: 400px;
+  margin-top: 20px;
+}
+
+#clock-title {
+  width: 100%;
+  font-size: 5em;
+  text-align: center;
+}
+
+#clock-row {
+  width: inherit;
+}
+
+.clock-labels {
+  font-family: "Bebas Neue";
+  font-size: 2vw;
+}
+
+.clock-holder {
+  background-color: #000;
+  padding: 3px;
+  min-width: 16vw;
+  color: #eee;
+  font-size: 5.5vw;
+  font-family: "Share Tech Mono";
+  border-radius: 15px;
+  text-align: center;
+}
+
+.action-buttons {
+  font-family: "Share Tech Mono";
+  min-width: 10vw;
+  font-size: 1.8vw;
+  text-align: center;
+}
+
+.action-buttons button {
+  width: 8.5vw;
+  font-size: 1.2vw;
+  border-radius: 2vw;
+  border: none;
+  padding: 0.3vw;
+  background-color: #444;
+  color: #eee;
+}
+
+.inc-dec {
+  width: 4vw;
+  text-align: center;
+  font-size: 4vw;
+}
+
+#timer-label {
+}
+
+.thin {
+  font-weight: 400;
+}
+
+.thick {
+  font-weight: 700;
+}
