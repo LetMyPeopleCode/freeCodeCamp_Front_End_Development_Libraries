@@ -57,15 +57,17 @@ This is my interpretation of the requirements doc that freeCodeCamp provides. It
 
 - Does the beep loop continuously until reset?
   - If so, does reset JUST stop the beep or does it stop everything? IE if you click it to stop the beep after a 25 minute session, does the break timer stop or keep going?
-  - Should there be a disabled "end alarm" button that enables while sound is looping. Reset stops and rewinds everything, but "end alarm" just ends the alarm, allowing timers to continue.
+  - Should there be a disabled "end alarm" button that enables while sound is looping. Reset stops and rewinds everything, but "end alarm" just ends the alarm, allowing timers to continue?
+  - **I chose to simply let it play, as per spec. Stopping/resetting the clock are the only ways to stop play.**
 - If you set custom times, why would "reset" clobber them back to defaults? 
   - reset button returns paused or running clocks stops and returns to set values (and resets any beeps)
   - reset button if clocks are not running and are at "set" values sets to defaults
+  - **While I'd have preferred a separate reset button, I decided to follow spec as there was some logic in it, even if not my preferred logic.**
 
 ## THE NOTES
 
-- Audio elements with "loop" specified loop continuously, no loop count. For a loop count, subscribe to onended and implement own counter.
-- Audio element "rewind" method is load(), no explicit stop() but pause(),
+- Audio elements with "loop" specified loop continuously, no loop count. For a loop count, subscribe to onended and implement own counter. 
+- Audio element "rewind" method is load(), no explicit stop() but pause(). Both can generate a non-fatal exception if the asset has not completed loading. Came up in tests, but not in any live use and is invisible to the customer.
 
 
 
@@ -77,4 +79,14 @@ The working version is [saved in a CodePen](https://codepen.io/GregBulmash/pen/g
 
 Easy as pie. Failed 28 of 29 (#1 is having a tech stack)
 
-### 2: Structure tests 
+### 2: Structure tests (US 1-10 + 26-27)
+
+Not worth passing these one at a time as much of the structure will be built together. This is the time where we decompose the design into components with no functionality. Passed.
+
+### 3: Functional tests (US 11-28)
+
+Passed all but 23-28, all of which failed with an error that the timer had not reached 00:00, though all real-world UAT showed these tests passed, something in the test structure was off. Research showed multiple highly active threads discussing the error over the past 3 years. This seemed to indicate another area of brittle tests. Since I could not argue the tests needed change, but the submission process didn't require passing them, I chose to let these slide rather than spend hours trying to develop a workaround.
+
+## Final thought
+
+Of the 5 projects, I felt most hobbled by CodePen on this one. Breaking up your code into multiple files is difficult enough on CodePen that it did not feel like the benefit would outweigh the effort, but if this was a real-world project, I'd have done so. If this was a quick proof-of-concept in a CodePen, I'd refactor on the next iteration when it was moved out of CodePen.

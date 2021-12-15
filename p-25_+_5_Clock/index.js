@@ -2,19 +2,29 @@
 var clock_interval;
 
 const App = () => {
+
+  const defaults = {
+    session: 1500,
+    break: 300
+  };
+
   const us = React.useState;
-  const [current_clock, setCurrent] = us("session");
   const [active_clock, setActive] = us("none");
-  const [session_clock, setSession] = us(1500);
-  const [session_count, setSessionCount] = us(1500);
-  const [break_clock, setBreak] = us(300);
-  const [break_count, setBreakCount] = us(300);
-  const [timer_label, setTimerLabel] = us("Ready");
+  const [session_clock, setSession] = us(defaults.session);
+  const [session_count, setSessionCount] = us(defaults.session);
+  const [break_clock, setBreak] = us(defaults.break);
+  const [break_count, setBreakCount] = us(defaults.break);
+  const [timer_label, setTimerLabel] = us("Session");
   const [session_label, setSessionLabel] = us("Work Time: ");
   const [break_label, setBreakLabel] = us("Break Time: ");
+  const [start_stop, setStart] = us("Start");
 
   function changeClock(event) {
     // extract session-* or break-* and set "clock" and "change" vars
+    if (clock_interval !== undefined) {
+      alert("Both clocks must be stopped to change them.");
+      return false;
+    }
     let opts = event.target.id.split("-");
     let change = 0;
     let clock = opts[0];
@@ -24,54 +34,91 @@ const App = () => {
     if (clock == "session") {
       // prevent exceeding maximums or minimums
       if (session_clock + change > 3600) return false;
-      if (session_count + change < 0) return false;
+      if (session_count + change < 1) return false;
+      if (session_clock + change < 1) return false;
       setSession(session_clock + change);
       setSessionCount(session_count + change);
     } else if (clock === "break") {
       // prevent exceeding maximums or minimums
       if (break_clock + change > 3600) return false;
-      if (break_count + change < 0) return false;
+      if (break_count + change < 1) return false;
+      if (break_clock + change < 1) return false;
       setBreak(break_clock + change);
       setBreakCount(break_count + change);
     }
   }
 
   function startStop() {
-    console.log("debug start/stop");
     // if button == stop, stops interval
     // if button == start, starts interval
-    if (active_clock !== "none") {
+    if (start_stop === "Stop") {
+      document.getElementById("beep").load();
       clearTimeout(clock_interval);
-      setActive("none");
+      clock_interval = undefined;
+      setTimerLabel("Ready");
+      setStart("Start");
     } else {
-      console.log("current", current_clock);
-      setActive(current_clock);
-      clock_interval = setTimeout(
-        runClocks,
-        1000,
-        current_clock,
-        session_count
-      );
+      document.getElementById("beep").load();
+      let current_clock, clock_count;
+      if (active_clock === "none") {
+        setActive("session");
+        current_clock = "session";
+        clock_count = session_count;
+      } else {
+        current_clock = active_clock;
+        clock_count = current_clock === "session" ? session_count : break_count;
+      }
+      setStart("Stop");
+      setTimerLabel(current_clock === "session" ? "Session" : "Break");
+      clock_interval = setTimeout(runClocks, 1000, current_clock, clock_count);
     }
   }
 
-  function resetClocks() {}
+  function resetClocks() {
+    clearTimeout(clock_interval);
+    clock_interval = undefined;
+    setSession(defaults.session);
+    setSessionCount(defaults.session);
+    setBreak(defaults.break);
+    setBreakCount(defaults.break);
+    setActive("none");
+    setTimerLabel("Ready");
+    setStart("Start");
+    document.getElementById("beep").load();
+  }
 
   function runClocks(current, count) {
-    console.log("called", current, count);
-    // called by interval
-    if (current === "session") {
-      if (count < 1) {
-        // play alarm
-        // switch active to break
-        clearTimeout(clock_interval);
-        setActive("none");
-        // start new interval
-      } else {
-        setSessionCount(count - 1);
-        clock_interval = setTimeout(runClocks, 1000, current, count - 1);
-      }
+    // called by Timeout
+    let sesClocks = {
+      altactive: "break",
+      altcount: break_clock,
+      setCount: setSessionCount,
+      clock: session_clock
+    };
+    let brkClocks = {
+      altactive: "session",
+      altcount: session_clock,
+      setCount: setBreakCount,
+      clock: break_clock
+    };
+    let useClock = current == "session" ? sesClocks : brkClocks;
+    if (count < 1) {
+      // play alarm
+      document.getElementById("beep").play();
+      // switch active to break
+      clock_interval = setTimeout(
+        runClocks,
+        1000,
+        useClock.altactive,
+        useClock.altcount
+      );
+      setActive(useClock.altactive);
+      useClock.setCount(useClock.clock);
+    } else {
+      clock_interval = setTimeout(runClocks, 1000, current, count - 1);
+      useClock.setCount(count - 1);
     }
+    setTimerLabel(useClock.altactive === "break" ? "Session" : "Break");
   }
 
   return (
@@ -87,9 +134,11 @@ const App = () => {
           timer_label={timer_label}
           session_clock={session_clock}
           session_count={session_count}
-          break_time={break_count}
+          break_clock={break_clock}
+          break_count={break_count}
           incDec={changeClock}
-          start_stop={startStop}
+          start_stop_click={startStop}
+          start_stop_status={start_stop}
           reset={resetClocks}
         />
       </div>
@@ -98,9 +147,10 @@ const App = () => {
 };
 
 const Clocks = (props) => {
-  //set the start-stop button value
-  let running = "Stop";
-  if (props.current_clock === "none") running = "Start";
+  let timernum =
+    props.current_clock === "session" || props.current_clock === "none"
+      ? props.session_count
+      : props.break_count;
 
   return (
     <div
@@ -130,27 +180,27 @@ const Clocks = (props) => {
         <div id="session-label" class="clock-labels">
           {props.session_label}
           <span id="session-length">
-            {Math.floor(props.session_clock / 60)}
+            {Math.ceil(props.session_clock / 60) > 0
+              ? Math.ceil(props.session_clock / 60)
+              : 1}
           </span>
         </div>
-        <span id="session-length">{makeClockString(props.session_count)}</span>
+        <span id="session-display">{makeClockString(props.session_count)}</span>
       </div>
 
       {/* ACTION BUTTONS */}
 
       <div class="action-buttons">
-        <div id="timer-label">
-          {props.timer_label}
-          <br />
-          <span class="small"></span>
-        </div>
-        <button id="start-stop" onClick={props.start_stop}>
-          {running}
+        <div id="timer-label">{props.timer_label}</div>
+        <button id="start_stop" onClick={props.start_stop_click}>
+          {props.start_stop_status}
         </button>
         <br />
         <button id="reset" onClick={props.reset}>
           Reset
         </button>
+        <div id="time-left">{makeClockString(timernum)}</div>
+
         <br />
       </div>
 
@@ -159,9 +209,11 @@ const Clocks = (props) => {
       <div class="clock-holder">
         <div id="break-label" class="clock-labels">
           {props.break_label}
-          <span id="break-length">{Math.floor(props.break_time / 60)}</span>
+          <span id="break-length">{Math.ceil(props.break_clock / 60)}</span>
         </div>
-        <span id="break-length">{makeClockString(props.break_time)}</span>
+        <span id="break-display">
+          {makeClockString(props.break_count, "break")}
+        </span>
       </div>
 
       {/* INCREMENT / DECREMENT BREAK TIME */}
@@ -179,6 +231,10 @@ const Clocks = (props) => {
           onClick={props.incDec}
         ></i>
       </div>
+      <audio
+        id="beep"
+        src="https://letmypeoplecode.github.io/freeCodeCamp_Front_End_Development_Libraries/sounds/dwarven_mountain_loop.mp3"
+      />
     </div>
   );
 };
@@ -187,7 +243,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 // HELPER FUNCTIONS
 
-function makeClockString(clock) {
+function makeClockString(clock, id = "id") {
   //takes # of seconds, returns MM:SS formatted string
   clock = parseInt(clock);
   let mins = Math.floor(clock / 60);

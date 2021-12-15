@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap");
 
-div {
-  /* border:1px solid #00d; */
+#time-left {
+  color: tomato;
+  font-size: 25px;
 }
 
 body {
@@ -67,9 +68,6 @@ body {
   width: 4vw;
   text-align: center;
   font-size: 4vw;
-}
-
-#timer-label {
 }
 
 .thin {
