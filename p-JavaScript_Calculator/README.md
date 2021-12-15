@@ -42,7 +42,7 @@ This is my interpretation of the requirements doc that freeCodeCamp provides. It
 
 ## THE PLAN:
 
-The working version is [saved in a CodePen](https://codepen.io/GregBulmash/pen/gOGLbrp). I am saving the HTML, CSS, and JS portions here for backup.
+The working version is [saved in a CodePen](https://codepen.io/GregBulmash/pen/dyVOZRm). I am saving the HTML, CSS, and JS portions here for backup.
 
 ### 1: Fail All Tests
 
